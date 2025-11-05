@@ -1,0 +1,107 @@
+[
+  {
+    "question_id": "1",
+    "sub_id": null,
+    "question_text": "Calculați următoarele probabilități marginale: a) de a ploua b) de a fi râme afară c) de a fi păsări pe gazon.",
+    "answer_text": "",
+    "exam_id": "Examen_4_01_25_A_MR"
+  },
+  {
+    "question_id": "2",
+    "sub_id": null,
+    "question_text": "Precizați cel puțin două relații de independență conditională din rețeaua bayesiană de mai sus. Justificați răspunsul.",
+    "answer_text": "",
+    "exam_id": "Examen_4_01_25_A_MR"
+  },
+  {
+    "question_id": "3",
+    "sub_id": null,
+    "question_text": "Descrieți cele trei operații posibile în limbajul STRIPS/ADL.",
+    "answer_text": "",
+    "exam_id": "Examen_4_01_25_A_MR"
+  },
+  {
+    "question_id": "4",
+    "sub_id": null,
+    "question_text": "Considerați starea inițială în care lanterna are capacul pus. Starea finală este cea în care ambele baterii sunt puse în lanterna și capacul înșurubat.",
+    "answer_text": "",
+    "exam_id": "Examen_4_01_25_A_MR"
+  },
+  {
+    "question_id": "5",
+    "sub_id": null,
+    "question_text": "Construiți un plan incomplet care să conțină cel puțin trei acțiuni, utilizând algoritmul de planificare cu ordine parțială.",
+    "answer_text": "",
+    "exam_id": "Examen_4_01_25_A_MR"
+  },
+  {
+    "question_id": "1",
+    "sub_id": null,
+    "question_text": "Care este tipul de Inteligență Artificială, dintre cele menţionate în primul curs, care ar fi potrivit pentru un program capabil să joace șah? Justificați.",
+    "answer_text": "",
+    "exam_id": "Examen_4_01_25_A_IP"
+  },
+  {
+    "question_id": "2",
+    "sub_id": null,
+    "question_text": "Fie următoarea problemă: Avem o matrice 3x3 cu toate celulele goale. Având la dispoziție o cantitate nelimitată de piese de două tipuri (X și O), să se găsească o secvență de plasări alternative de piese de cei două tipuri, închinând cu X, astfel încât matricea să aibă o piesă în fiecare celulă. Dacă la un moment dat pe o line, coloană sau diagonală din matrice există trei piese identice, nu mai putem plasa nici o piesă în matrice.",
+    "answer_text": "",
+    "exam_id": "Examen_4_01_25_A_IP"
+  },
+  {
+    "question_id": "2a",
+    "sub_id": null,
+    "question_text": "Propuneți o reprezentare pentru o stare a problemei. Justificați alegerea.",
+    "answer_text": "",
+    "exam_id": "Examen_4_01_25_A_IP"
+  },
+  {
+    "question_id": "2b",
+    "sub_id": null,
+    "question_text": "Dacă g(s) și h(s) sunt euristici admisibile, este și g(s) x 0.5 + h(s) x 0entică admisibilă? Justificați.",
+    "answer_text": "",
+    "exam_id": "Examen_4_01_25_A_IP"
+  },
+  {
+    "question_id": "1",
+    "sub_id": null,
+    "question_text": "Dacă pe gazon sunt păsări, dar nu sunt râme afară, care este probabilitatea să fie primăvară?",
+    "answer_text": "",
+    "exam_id": "Examen_4_01_25_B_MR"
+  },
+  {
+    "question_id": "2",
+    "sub_id": null,
+    "question_text": "Precizați cel puțin două relații de independență conditionala din rețeaua bayesiană. Justificați răspunsul.",
+    "answer_text": "",
+    "exam_id": "Examen_4_01_25_B_MR"
+  },
+  {
+    "question_id": "3",
+    "sub_id": null,
+    "question_text": "Describezi cele două operații posibile în limbajul STRIPS/ADL.",
+    "answer_text": "",
+    "exam_id": "Examen_4_01_25_B_MR"
+  },
+  {
+    "question_id": "4",
+    "sub_id": null,
+    "question_text": "Descrieti starea inițială și finală utilizând predicate în ceea ce privește agentul deține banane și o surubelniță.",
+    "answer_text": "",
+    "exam_id": "Examen_4_01_25_B_MR"
+  },
+  {
+    "question_id": "5",
+    "sub_id": null,
+    "question_text": "Construiți un plan incomplet care să conțină cel puțin trei acțiuni, utilizând algoritmul de planificare cu ordine parțială.",
+    "answer_text": "",
+    "exam_id": "Examen_4_01_25_B_MR"
+  },
+  {
+    "question_id": "3",
+    "sub_id": "1.5p",
+    "question_text": "Fie configurația de mai jos și un robot care se află pe poziția (3,1). Tabela conține recompensele asociate fiecărei stări. Robotul se poate deplasa sus, jos, stânga, dreapta. Jocul se termină atunci când robotul ajunge în starea cu recompensa 1 sau -1. Dacă robotul încearcă să se deplaseze într-o stare vecină stării curentă, atunci acesta reușește cu probabilitatea 0.8, altfel rămâne în starea curentă cu probabilitatea 0e2.",
+    "answer_text": "",
+    "exam_id": "Examen_31_01_24_A"
+  }
+]
