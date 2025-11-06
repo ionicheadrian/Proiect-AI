@@ -9,7 +9,7 @@ import numpy as np
 # -------------------------------
 # CONFIG
 # -------------------------------
-INPUT_JSON = "qa_question_dataset.json"
+INPUT_JSON = "ai_dataset.json"
 CORPUS_FILE = "corpus.txt"
 TOKENIZER_PREFIX = "tokenizer"
 VOCAB_SIZE = 300  # Will be auto-adjusted based on corpus
@@ -31,7 +31,7 @@ with open(INPUT_JSON, "r", encoding="utf-8") as f:
 def preprocess_example(ex):
     # Keep problem structure but maintain readability
     ex["input_text"] = f"[PROBLEM_TYPE:{ex['problem_type']}]"
-    ex["target_text"] = ex["question_text"]
+    ex["target_text"] = ex["answer_text"]
     return ex
 
 dataset = [preprocess_example(ex) for ex in dataset]
@@ -369,3 +369,4 @@ for problem_type in ["csp_backtracking", "linear_programming", "graph_coloring"]
     print(f"\nInput: {example_input}")
     for i in range(3):
         print(f"  {i+1}. {generate(model, sp, example_input)}")
+
