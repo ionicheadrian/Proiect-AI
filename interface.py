@@ -154,7 +154,22 @@ class QuizApplication:
             hover_color=("#174f7a", "#3d8ae6")
         )
         generate_btn.pack(pady=40)
-        
+
+        pdf_export_btn = ctk.CTkButton(
+            frame,
+            text="Creare Test PDF",
+            command=self.open_pdf_selection_window,
+            width=280,
+            height=50,
+            font=ctk.CTkFont(size=16, weight="bold"),
+            corner_radius=30,
+            fg_color="transparent",
+            border_width=2,
+            border_color=("#1f6aa5", "#4a9eff"),
+            hover_color=("#1f6aa5", "#2b2b2b")
+        )
+        pdf_export_btn.pack(pady=(0, 20))
+
         return frame
     
     def create_question_frame(self):
@@ -595,9 +610,67 @@ class QuizApplication:
             corner_radius=15
         )
         close_btn.pack(pady=(0, 15))
-        
+
         # Auto-close after 10 seconds
         self.root.after(10000, lambda: self.answer_tooltip.destroy() if self.answer_tooltip else None)
+
+    def open_pdf_selection_window(self):
+        """Deschide o fereastră pentru selecția categoriilor pentru PDF"""
+        self.pdf_window = ctk.CTkToplevel(self.root)
+        self.pdf_window.title("Selectează Categoriile pentru PDF")
+        self.pdf_window.geometry("400x550")
+        self.pdf_window.attributes('-topmost', True) # Să stea deasupra
+
+        ctk.CTkLabel(self.pdf_window, text="Alege subiectele pentru test:", 
+                     font=ctk.CTkFont(size=18, weight="bold")).pack(pady=20)
+
+        # Container pentru checkbox-uri
+        scroll_frame = ctk.CTkScrollableFrame(self.pdf_window, width=300, height=300)
+        scroll_frame.pack(pady=10, padx=20, fill="both", expand=True)
+
+        self.pdf_vars = {}
+        for cat in self.categories:
+            var = ctk.BooleanVar(value=False)
+            cb = ctk.CTkCheckBox(scroll_frame, text=cat, variable=var)
+            cb.pack(pady=10, padx=20, anchor="w")
+            self.pdf_vars[cat] = var
+
+        # Buton de finalizare
+        export_btn = ctk.CTkButton(
+            self.pdf_window, 
+            text="Generați și Salvați PDF",
+            command=self.process_pdf_export
+        )
+        export_btn.pack(pady=20)
+
+    def process_pdf_export(self):
+        from tkinter import filedialog
+        
+        # Vedem ce a selectat utilizatorul
+        selected = [cat for cat, var in self.pdf_vars.items() if var.get()]
+        
+        if not selected:
+            messagebox.showwarning("Atenție", "Selectează cel puțin o categorie!")
+            return
+
+        file_path = filedialog.asksaveasfilename(
+            defaultextension=".pdf",
+            filetypes=[("PDF files", "*.pdf")],
+            title="Salvează Testul"
+        )
+
+        if file_path:
+            self.pdf_window.destroy() # Închidem fereastra de selecție
+            self.status_label.configure(text="Generare PDF în curs...")
+            self.root.update()
+
+            try:
+                backend.generate_pdf_quiz(selected, file_path)
+                messagebox.showinfo("Succes", f"Testul a fost salvat cu succes în:\n{file_path}")
+            except Exception as e:
+                messagebox.showerror("Eroare", f"Eroare la generare: {str(e)}")
+            finally:
+                self.status_label.configure(text="")
 
 
 def main():

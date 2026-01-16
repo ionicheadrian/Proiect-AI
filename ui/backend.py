@@ -4,6 +4,7 @@ import sentencepiece as spm
 import numpy as np
 from difflib import SequenceMatcher
 import re
+from fpdf import FPDF
 
 # ----------------------------------
 # DEVICE / CONSTANTS
@@ -249,3 +250,79 @@ def generate_question(category, temperature):
     answer = generate(answer_model, sp_answer, category, temperature=temperature)
     question = generate(question_model, sp_question, answer, temperature=temperature)
     return question, answer
+
+def generate_pdf_quiz(selected_categories, file_path, temperature=0.7):
+    from fpdf import FPDF
+    
+    pdf = FPDF(orientation="P", unit="mm", format="A4")
+    pdf.set_margins(left=15, top=15, right=15)
+    pdf.set_auto_page_break(auto=True, margin=15)
+    
+    # Pagina 1: Întrebări
+    pdf.add_page()
+    effective_width = pdf.epw 
+
+    # Titlu (curățat)
+    pdf.set_font("helvetica", "B", 20)
+    pdf.cell(effective_width, 15, clean_text("Test AI: Algoritmi si Tehnici"), ln=True, align="C")
+    pdf.ln(10)
+
+    qa_results = []
+    for cat in selected_categories:
+        q, a = generate_question(cat, temperature)
+        # Curățăm textul generat de AI imediat
+        qa_results.append((cat, clean_text(q), clean_text(a)))
+
+    pdf.set_font("helvetica", "B", 14)
+    pdf.cell(effective_width, 10, clean_text("Subiecte propuse:"), ln=True)
+    pdf.ln(5)
+
+    for i, (cat, q, a) in enumerate(qa_results, 1):
+        pdf.set_x(15) 
+        pdf.set_font("helvetica", "B", 12)
+        pdf.multi_cell(effective_width, 10, clean_text(f"{i}. Categorie: {cat.upper()}"), align='L')
+        
+        pdf.set_x(15)
+        pdf.set_font("helvetica", "", 12)
+        pdf.multi_cell(effective_width, 8, f"Intrebare: {q}", align='L')
+        pdf.ln(15)
+
+    # Pagina 2: Răspunsuri
+    pdf.add_page()
+    pdf.set_font("helvetica", "B", 16)
+    pdf.cell(effective_width, 10, clean_text("Grila de Corectare:"), ln=True)
+    pdf.ln(5)
+
+    for i, (cat, q, a) in enumerate(qa_results, 1):
+        pdf.set_x(15)
+        pdf.set_font("helvetica", "B", 11)
+        pdf.cell(effective_width, 10, clean_text(f"Raspuns {i} ({cat}):"), ln=True)
+        
+        pdf.set_x(15)
+        pdf.set_font("helvetica", "", 11)
+        pdf.multi_cell(effective_width, 7, a, align='L')
+        pdf.ln(5)
+
+    pdf.output(file_path)
+
+def clean_text(text):
+    """Înlocuiește caracterele Unicode speciale cu variante compatibile Helvetica"""
+    if not text:
+        return ""
+    
+    # Mapare caractere problematice la variante simple ASCII
+    replacements = {
+        '\u2013': '-', # en-dash
+        '\u2014': '-', # em-dash
+        '\u2018': "'", # smart single quote left
+        '\u2019': "'", # smart single quote right
+        '\u201c': '"', # smart double quote left
+        '\u201d': '"', # smart double quote right
+        '\u2022': '*', # bullet point
+    }
+    
+    for char, replacement in replacements.items():
+        text = text.replace(char, replacement)
+        
+    # Eliminăm orice alt caracter care nu poate fi encodat în 'latin-1'
+    return text.encode('latin-1', 'replace').decode('latin-1')
